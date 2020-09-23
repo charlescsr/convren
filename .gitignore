@@ -1,3 +1,5 @@
 build/
 dist/
 img_renamer.egg-info/
+.vscode/
+__pycache__/
