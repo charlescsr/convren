@@ -9,7 +9,7 @@ INSTALL_REQUIRES = [
 
 setuptools.setup(
     name="img-renamer",
-    version="0.0.3",
+    version="0.0.4",
     author="Charles Samuel R",
     author_email="rcharles.samuel99@gmail.com",
     description="A package to convert and rename different images to the same format",
