@@ -9,7 +9,7 @@ def conv_ren(folder, form, name):
     for filename in os.listdir(folder):
         img = Image.open(os.path.join(folder,filename)).convert("RGB")
         try:
-            s = str(name)"."+str(i)+str(form)
+            s = str(name)+"."+str(i)+str(form)
             img.save(s, str(form))
         except Exception:
             print("Wrong format")
