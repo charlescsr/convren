@@ -15,7 +15,7 @@ setuptools.setup(
     description="A package to convert and rename different images to the same format",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/charlescsr/img-renamer",
+    url="https://github.com/charlescsr/convren",
     packages=['renamer'],
     classifiers=[
         "Programming Language :: Python :: 3",
