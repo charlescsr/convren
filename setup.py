@@ -8,7 +8,7 @@ INSTALL_REQUIRES = [
 ]
 
 setuptools.setup(
-    name="img_conv_ren",
+    name="convren",
     version="0.0.1",
     author="Charles Samuel R",
     author_email="rcharles.samuel99@gmail.com",
