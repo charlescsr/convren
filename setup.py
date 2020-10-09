@@ -4,11 +4,11 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 INSTALL_REQUIRES = [
-    'Pillow==7.1.0'
+    'Pillow'
 ]
 
 setuptools.setup(
-    name="img-renamer",
+    name="img_renamer",
     version="0.0.1",
     author="Charles Samuel R",
     author_email="rcharles.samuel99@gmail.com",
