@@ -28,6 +28,6 @@ class Renamer():
                 s = str(name)+"."+str(i)+str(form)
                 img.save(s, form)
             except Exception:
-                print("Check if you have the right format going on. JPG is JPEG.")
+                print("Check if you have the right format going on. JPG is JPEG. File path should be absolute")
                 break
             i += 1
