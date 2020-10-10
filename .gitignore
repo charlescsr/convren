@@ -1,5 +1,4 @@
 build/
 dist/
-convren.egg-info/
 .vscode/
 __pycache__/
