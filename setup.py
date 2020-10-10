@@ -7,7 +7,7 @@ INSTALL_REQUIRES = [
     'Pillow'
 ]
 setuptools.setup(
-    name="test_convren_csr", 
+    name="test_convren", 
     version="0.0.1",
     author="Charles Samuel R",
     author_email="rcharles.samuel99@gmail.com",
