@@ -22,3 +22,9 @@ jobs:
       TWINE_PASSWORD: $PYPI_PASSWORD
     steps:
       - run: twine upload dist/*
+
+workflows:
+  main:
+    jobs:
+      - build
+      - upload
