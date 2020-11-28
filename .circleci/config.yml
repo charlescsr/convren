@@ -20,7 +20,6 @@ jobs:
             . convenv/bin/activate
             python -m pip install --upgrade pip
             pip install setuptools wheel twine
-
       - save_cache:
           key: $CIRCLE_SHA1
           paths:
@@ -30,6 +29,8 @@ jobs:
   upload:
     docker:
       - image: python:3.8
+    
+#    working_directory: $PWD_IMG
 
     environment:
       TWINE_USERNAME: $PYPI_USERNAME
@@ -45,8 +46,7 @@ jobs:
           name: Upload Package
           command: |
             . convenv/bin/activate
-            sudo ls $CIRCLE_WORKING_DIRECTORY
-            python setup.py sdist bdist_wheel            
+            python $PWD_IMG/setup.py sdist bdist_wheel            
             twine upload dist/*
 
 workflows:
