@@ -1,36 +1,46 @@
-# This workflows will upload a Python Package using Twine when a release is created
-# For more information see: https://help.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions#publishing-to-package-registries
 version: 2.1
-
-orbs:
-  python: circleci/python@0.2.1
 
 jobs:
   build:
     docker:
       - image: python:3.8
-
-    environment:
-      TWINE_USERNAME: $PYPI_USERNAME
-      TWINE_PASSWORD: $PYPI_PASSWORD
+    
     steps:
       - checkout
 
       - run:
-        name: Install packages
-        command: |
-          python3 -m venv convenv
-          . convenv/bin/activate
-          python -m pip install --upgrade pip
-          pip install setuptools wheel twine
+          name: Install packages
+          command: |
+            python3 -m venv convenv
+            . convenv/bin/activate
+            python -m pip install --upgrade pip
+            pip install setuptools wheel twine
 
       - save_cache:
-        paths:
-          - "convvenv"
+          paths:
+            - "convenv"
       
-      - run:
+      
+  upload:
+    - environment:
+      TWINE_USERNAME: $PYPI_USERNAME
+      TWINE_PASSWORD: $PYPI_PASSWORD
+    
+    - restore_cache:
+        paths:
+          - "convvenv"    
+    
+    - run:
         name: Upload Package
         command: |
           . convenv/bin/activate
           python setup.py sdist bdist_wheel
           twine upload dist/*
+
+workflows:
+  build_and_upload:
+    jobs:
+      - build
+      - upload:
+          requires:
+            - build
