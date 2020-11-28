@@ -11,7 +11,7 @@ INSTALL_REQUIRES = [
 
 setuptools.setup(
     name="imgconvren", 
-    version="0.0.1",
+    version="0.0.2",
     author="Charles Samuel R",
     author_email="rcharles.samuel99@gmail.com",
     description="A package to convert and rename images easily",
