@@ -2,31 +2,23 @@
 # For more information see: https://help.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions#publishing-to-package-registries
 version: 2.1
 
-name: Upload Python Package
-
-on:
-  release:
-    types: [created]
+orbs:
+  python: circleci/python@0.2.1
 
 jobs:
-  deploy:
-
-    runs-on: ubuntu-latest
-
+  build:
+    executor: python/default
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install setuptools wheel twine
-    - name: Build and publish
-      env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-      run: |
-        python setup.py sdist bdist_wheel
-        twine upload dist/*
+      - checkout
+      - run:
+          command: |
+            python -m pip install --upgrade pip
+            pip install setuptools wheel twine
+            python setup.py sdist bdist_wheel
+  upload:
+    executor: python/default
+    environment:
+      TWINE_USERNAME: $PYPI_USERNAME
+      TWINE_PASSWORD: $PYPI_PASSWORD
+    steps:
+      - run: twine upload dist/*
