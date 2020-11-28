@@ -46,7 +46,8 @@ jobs:
           name: Upload Package
           command: |
             . convenv/bin/activate
-            python $PWD_IMG/setup.py sdist bdist_wheel            
+            cd $PWD_IMG
+            python setup.py sdist bdist_wheel            
             twine upload dist/*
 
 workflows:
