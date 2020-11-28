@@ -27,7 +27,6 @@ jobs:
       - save_cache:
           key: $CIRCLE_SHA1
           paths:
-            - "convenv"
             - "~/repo/requirements.txt"
       
       
@@ -45,7 +44,6 @@ jobs:
       - restore_cache:
           key: $CIRCLE_SHA1
           paths:
-            - "convvenv"
             - "~/repo/requirements.txt"    
 
       - run:
