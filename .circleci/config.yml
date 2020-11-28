@@ -45,7 +45,7 @@ jobs:
           name: Upload Package
           command: |
             . convenv/bin/activate
-            ls $CIRCLE_WORKING_DIRECTORY
+            sudo ls $CIRCLE_WORKING_DIRECTORY
             python setup.py sdist bdist_wheel            
             twine upload dist/*
 
