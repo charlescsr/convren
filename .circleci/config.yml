@@ -26,4 +26,4 @@ jobs:
 workflows:
   build_and_upload:
     jobs:
-      - upload:
+      - upload
