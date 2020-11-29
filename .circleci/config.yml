@@ -1,28 +1,44 @@
 version: 2.1
 
-jobs:      
-  upload:
+jobs:
+  build:
     docker:
-      - image: python:3.8
-    
-    working_directory: ~/repo
-
-    environment:
-      TWINE_USERNAME: $PYPI_USERNAME
-      TWINE_PASSWORD: $PYPI_PASSWORD
-    
+      - image: circleci/python:3.8
     steps:
+      - checkout
+      
+      - restore_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "setup.py" }}
+      
       - run:
-          name: Upload Package
+          name: install python dependencies
           command: |
-            python3 -m venv convenv
-            . convenv/bin/activate
-            python -m pip install --upgrade pip
-            pip install setuptools wheel twine
-            python setup.py sdist bdist_wheel            
+            python3 -m venv venv
+            . venv/bin/activate
+
+      - save_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "setup.py" }}
+          paths:
+            - "venv"
+
+      - run:
+          name: init .pypirc
+          command: |
+            echo -e "[pypi]" >> ~/.pypirc
+            echo -e "username = $PYPI_USERNAME" >> ~/.pypirc
+            echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
+
+      - run:
+          name: create packages
+          command: |
+            python setup.py sdist bdist_wheel
+      - run:
+          name: upload to pypi
+          command: |
+            . venv/bin/activate
             twine upload dist/*
 
 workflows:
-  build_and_upload:
+  build_and_deploy:
     jobs:
-      - upload
+      - build
