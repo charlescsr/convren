@@ -4,6 +4,7 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.8
+    
     steps:
       - checkout
       
@@ -11,10 +12,12 @@ jobs:
           key: deps1-{{ .Branch }}-{{ checksum "setup.py" }}
       
       - run:
-          name: install python dependencies
+          name: Install Python Dependencies
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            python -m pip install --upgrade pip
+            pip install setuptools wheel twine
 
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "setup.py" }}
@@ -29,11 +32,11 @@ jobs:
             echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
 
       - run:
-          name: create packages
+          name: Create Packages
           command: |
             python setup.py sdist bdist_wheel
       - run:
-          name: upload to pypi
+          name: Upload to PyPi
           command: |
             . venv/bin/activate
             twine upload dist/*
